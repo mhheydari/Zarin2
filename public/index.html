@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گلدتریدر - پلتفرم معاملات طلا و سکه</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen" class="loading-screen">
+  <div class="loading-content">
+    <div class="loading-logo">
+      <i class="fas fa-coins"></i>
+    </div>
+    <h2>گلدتریدر</h2>
+    <div class="loading-bar"><div class="loading-progress"></div></div>
+  </div>
+</div>
+
+<!-- App Container -->
+<div id="app" style="display:none;">
+
+  <!-- Auth Pages -->
+  <div id="page-auth" class="page active">
+    <div class="auth-container">
+      <div class="auth-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+      <div class="auth-card glass-card animate-in">
+        <div class="auth-logo">
+          <div class="logo-icon"><i class="fas fa-coins"></i></div>
+          <h1>گلدتریدر</h1>
+          <p>پلتفرم حرفه‌ای معاملات طلا و سکه</p>
+        </div>
+
+        <!-- Login Tab -->
+        <div class="auth-tabs">
+          <button class="tab-btn active" onclick="switchAuthTab('otp')">ورود با کد</button>
+          <button class="tab-btn" onclick="switchAuthTab('password')">ورود با رمز</button>
+        </div>
+
+        <!-- OTP Form -->
+        <div id="auth-otp" class="auth-form">
+          <div id="otp-step1">
+            <div class="form-group">
+              <label>شماره موبایل</label>
+              <div class="input-with-icon">
+                <i class="fas fa-mobile-alt"></i>
+                <input type="tel" id="otp-phone" placeholder="09xxxxxxxxx" maxlength="11" class="form-input" dir="ltr">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>کد معرف (اختیاری)</label>
+              <div class="input-with-icon">
+                <i class="fas fa-user-plus"></i>
+                <input type="text" id="otp-referral" placeholder="کد معرف" class="form-input" dir="ltr">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="sendOTP()">
+              <span>ارسال کد تأیید</span>
+              <i class="fas fa-arrow-left"></i>
+            </button>
+          </div>
+          
+          <div id="otp-step2" style="display:none;">
+            <div class="otp-info">
+              <i class="fas fa-sms"></i>
+              <p>کد ۶ رقمی به <span id="otp-phone-display" class="highlight"></span> ارسال شد</p>
+            </div>
+            <div class="form-group">
+              <label>کد تأیید</label>
+              <div class="otp-inputs">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,1)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,2)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,3)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,4)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,5)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="moveOTP(this,6)">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="verifyOTP()">
+              <span>تأیید و ورود</span>
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-ghost btn-full mt-10" onclick="backToStep1()">
+              <i class="fas fa-arrow-right"></i>
+              <span>تغییر شماره</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Password Form -->
+        <div id="auth-password" class="auth-form" style="display:none;">
+          <form onsubmit="event.preventDefault(); loginWithPassword();">
+          <div class="form-group">
+            <label>شماره موبایل</label>
+            <div class="input-with-icon">
+              <i class="fas fa-mobile-alt"></i>
+              <input type="tel" id="login-phone" placeholder="09xxxxxxxxx" maxlength="11" class="form-input" dir="ltr" autocomplete="username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>رمز عبور</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="login-password" placeholder="رمز عبور" class="form-input" dir="ltr" autocomplete="current-password">
+              <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span>ورود</span>
+            <i class="fas fa-sign-in-alt"></i>
+          </button>
+          </form>
+        </div>
+
+        <div id="auth-message" class="auth-message" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App (after login) -->
+  <div id="page-app" class="page" style="display:none;">
+    
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-coins"></i>
+          <span>گلدتریدر</span>
+        </div>
+        <button class="sidebar-close" onclick="toggleSidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="sidebar-user" id="sidebar-user-info">
+        <div class="user-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-details">
+          <div id="sidebar-user-name" class="user-name">کاربر</div>
+          <div id="sidebar-user-phone" class="user-phone"></div>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li><a href="#" onclick="showSection('trade')" class="nav-item active" data-section="trade">
+          <i class="fas fa-chart-line"></i><span>معاملات</span>
+        </a></li>
+        <li><a href="#" onclick="showSection('wallet')" class="nav-item" data-section="wallet">
+          <i class="fas fa-wallet"></i><span>کیف پول</span>
+        </a></li>
+        <li><a href="#" onclick="showSection('orders')" class="nav-item" data-section="orders">
+          <i class="fas fa-list-alt"></i><span>سفارشات</span>
+        </a></li>
+        <li><a href="#" onclick="showSection('withdrawal')" class="nav-item" data-section="withdrawal">
+          <i class="fas fa-money-bill-wave"></i><span>برداشت وجه</span>
+        </a></li>
+        <li><a href="#" onclick="showSection('referral')" class="nav-item" data-section="referral">
+          <i class="fas fa-users"></i><span>معرفی دوستان</span>
+        </a></li>
+        <li><a href="#" onclick="showSection('profile')" class="nav-item" data-section="profile">
+          <i class="fas fa-user-cog"></i><span>پروفایل</span>
+        </a></li>
+        <li id="admin-nav-item" style="display:none;">
+          <a href="#" onclick="showSection('admin')" class="nav-item" data-section="admin">
+            <i class="fas fa-shield-alt"></i><span>پنل ادمین</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>خروج</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-title" id="header-title">معاملات</div>
+        <div class="header-actions">
+          <button class="notif-btn" onclick="showSection('notifications')" id="notif-btn">
+            <i class="fas fa-bell"></i>
+            <span class="notif-badge" id="notif-badge" style="display:none;"></span>
+          </button>
+          <div class="price-ticker" id="price-ticker">
+            <span class="ticker-label">طلای ۱۸</span>
+            <span class="ticker-price" id="ticker-gold18">---</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area">
+
+        <!-- Trade Section -->
+        <section id="section-trade" class="content-section active">
+          <div class="section-header">
+            <h2 class="section-title">معاملات دارایی</h2>
+            <div class="price-mode-badge" id="price-mode-badge">
+              <i class="fas fa-circle"></i>
+              <span>در حال بارگذاری...</span>
+            </div>
+          </div>
+
+          <!-- Asset Selector -->
+          <div class="asset-grid" id="asset-cards"></div>
+
+          <!-- Trade Panel -->
+          <div class="trade-panel glass-card" id="trade-panel" style="display:none;">
+            <div class="trade-header">
+              <div class="trade-asset-info">
+                <div class="trade-asset-icon" id="trade-asset-icon"><i class="fas fa-coins"></i></div>
+                <div>
+                  <h3 id="trade-asset-name">---</h3>
+                  <div class="trade-price" id="trade-asset-price">---</div>
+                </div>
+              </div>
+              <button class="btn-close-trade" onclick="closeTradePanel()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <!-- Buy/Sell Toggle -->
+            <div class="trade-type-toggle">
+              <button class="trade-type-btn active buy-btn" id="btn-buy" onclick="setTradeType('buy')">
+                <i class="fas fa-arrow-down"></i> خرید
+              </button>
+              <button class="trade-type-btn sell-btn" id="btn-sell" onclick="setTradeType('sell')">
+                <i class="fas fa-arrow-up"></i> فروش
+              </button>
+            </div>
+
+            <!-- Trade Mode -->
+            <div class="trade-mode-toggle">
+              <button class="mode-btn active" id="mode-quantity" onclick="setTradeMode('quantity')">
+                <i class="fas fa-balance-scale"></i> بر اساس مقدار
+              </button>
+              <button class="mode-btn" id="mode-amount" onclick="setTradeMode('amount')">
+                <i class="fas fa-toman"></i> بر اساس مبلغ
+              </button>
+            </div>
+
+            <div class="trade-inputs">
+              <div class="form-group" id="quantity-input-group">
+                <label>مقدار (<span id="trade-unit">گرم</span>)</label>
+                <div class="input-with-icon">
+                  <i class="fas fa-balance-scale"></i>
+                  <input type="number" id="trade-quantity" placeholder="0.00" min="0" step="0.001" class="form-input" dir="ltr" oninput="calculateTrade()">
+                </div>
+              </div>
+              <div class="form-group" id="amount-input-group" style="display:none;">
+                <label>مبلغ (ریال)</label>
+                <div class="input-with-icon">
+                  <i class="fas fa-money-bill"></i>
+                  <input type="number" id="trade-amount" placeholder="0" min="0" class="form-input" dir="ltr" oninput="calculateTrade()">
+                </div>
+              </div>
+            </div>
+
+            <div class="trade-summary glass-card" id="trade-summary">
+              <div class="summary-row">
+                <span>قیمت هر واحد:</span>
+                <span id="summary-price">---</span>
+              </div>
+              <div class="summary-row">
+                <span>مقدار:</span>
+                <span id="summary-quantity">---</span>
+              </div>
+              <div class="summary-row total-row">
+                <span>مبلغ کل:</span>
+                <span id="summary-total">---</span>
+              </div>
+            </div>
+
+            <div class="trade-balance-info">
+              <div class="balance-item">
+                <span>موجودی ریالی:</span>
+                <strong id="trade-cash-balance">---</strong>
+              </div>
+              <div class="balance-item">
+                <span>موجودی دارایی:</span>
+                <strong id="trade-asset-balance">---</strong>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full btn-trade" id="btn-submit-trade" onclick="submitOrder()">
+              <span id="trade-btn-text">ثبت سفارش خرید</span>
+              <i class="fas fa-check-circle"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Wallet Section -->
+        <section id="section-wallet" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">کیف پول</h2>
+            <button class="btn btn-sm btn-outline" onclick="loadWallet()">
+              <i class="fas fa-sync-alt"></i> بروزرسانی
+            </button>
+          </div>
+
+          <div class="wallet-overview glass-card" id="wallet-overview">
+            <div class="wallet-stat">
+              <div class="wallet-stat-label">موجودی ریالی</div>
+              <div class="wallet-stat-value" id="cash-balance-display">---</div>
+            </div>
+            <div class="wallet-stat">
+              <div class="wallet-stat-label">ارزش دارایی‌ها</div>
+              <div class="wallet-stat-value" id="asset-value-display">---</div>
+            </div>
+            <div class="wallet-stat total">
+              <div class="wallet-stat-label">ارزش کل پرتفو</div>
+              <div class="wallet-stat-value" id="total-portfolio-display">---</div>
+            </div>
+          </div>
+
+          <h3 class="sub-title">دارایی‌های من</h3>
+          <div id="asset-wallets-list" class="asset-wallets"></div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="section-orders" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">تاریخچه سفارشات</h2>
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="filterOrders('')">همه</button>
+              <button class="filter-tab" onclick="filterOrders('pending')">در انتظار</button>
+              <button class="filter-tab" onclick="filterOrders('completed')">تکمیل</button>
+              <button class="filter-tab" onclick="filterOrders('rejected')">رد شده</button>
+            </div>
+          </div>
+          <div id="orders-list" class="orders-list"></div>
+        </section>
+
+        <!-- Withdrawal Section -->
+        <section id="section-withdrawal" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">درخواست برداشت وجه</h2>
+          </div>
+
+          <div class="withdrawal-form glass-card">
+            <div class="form-group">
+              <label>مبلغ (ریال)</label>
+              <div class="input-with-icon">
+                <i class="fas fa-money-bill"></i>
+                <input type="number" id="withdraw-amount" placeholder="حداقل ۵۰۰,۰۰۰ ریال" class="form-input" dir="ltr">
+              </div>
+              <div class="available-balance">موجودی قابل برداشت: <strong id="withdraw-available">---</strong></div>
+            </div>
+            <div class="form-group">
+              <label>شماره شبا</label>
+              <div class="input-with-icon">
+                <i class="fas fa-university"></i>
+                <input type="text" id="withdraw-sheba" placeholder="IR000000000000000000000000" maxlength="26" class="form-input" dir="ltr">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>نام صاحب حساب</label>
+              <div class="input-with-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" id="withdraw-holder" placeholder="نام و نام‌خانوادگی" class="form-input">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>نام بانک (اختیاری)</label>
+              <div class="input-with-icon">
+                <i class="fas fa-building"></i>
+                <input type="text" id="withdraw-bank" placeholder="مثلاً: بانک ملی" class="form-input">
+              </div>
+            </div>
+            <div class="info-box">
+              <i class="fas fa-info-circle"></i>
+              <p>پس از ثبت درخواست، کارشناسان ما با شما تماس می‌گیرند و پس از تأیید، وجه واریز می‌شود.</p>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="submitWithdrawal()">
+              <span>ثبت درخواست برداشت</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+
+          <h3 class="sub-title mt-20">تاریخچه برداشت‌ها</h3>
+          <div id="withdrawals-list" class="orders-list"></div>
+        </section>
+
+        <!-- Referral Section -->
+        <section id="section-referral" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">معرفی دوستان</h2>
+          </div>
+
+          <div class="referral-card glass-card">
+            <div class="referral-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>کد معرف شما</h3>
+            <div class="referral-code-display">
+              <span id="my-referral-code">---</span>
+              <button class="copy-btn" onclick="copyReferralCode()">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p class="referral-info">این کد را به دوستانتان بدهید تا هنگام ثبت‌نام استفاده کنند</p>
+          </div>
+
+          <div class="referral-stats glass-card">
+            <div class="stat-item">
+              <div class="stat-num" id="referral-count">۰</div>
+              <div class="stat-label">تعداد معرفی‌شدگان</div>
+            </div>
+          </div>
+
+          <h3 class="sub-title">افرادی که معرفی کرده‌اید</h3>
+          <div id="referrals-list" class="referrals-list"></div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="section-profile" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">پروفایل</h2>
+          </div>
+
+          <div class="profile-card glass-card">
+            <div class="profile-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div id="profile-phone" class="profile-phone"></div>
+          </div>
+
+          <div class="profile-form glass-card">
+            <h3>ویرایش اطلاعات</h3>
+            <div class="form-group">
+              <label>نام و نام‌خانوادگی</label>
+              <div class="input-with-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" id="profile-name" placeholder="نام کامل" class="form-input">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>کد ملی</label>
+              <div class="input-with-icon">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="profile-national-id" placeholder="کد ملی" class="form-input" dir="ltr" maxlength="10">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>ایمیل</label>
+              <div class="input-with-icon">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="profile-email" placeholder="ایمیل" class="form-input" dir="ltr">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="updateProfile()">
+              <span>ذخیره تغییرات</span>
+              <i class="fas fa-save"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Notifications Section -->
+        <section id="section-notifications" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">اطلاعیه‌ها</h2>
+            <button class="btn btn-sm btn-outline" onclick="markAllRead()">خوانده‌شده</button>
+          </div>
+          <div id="notifications-list" class="notifications-list"></div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="section-admin" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 class="section-title">پنل مدیریت</h2>
+          </div>
+          
+          <!-- Admin Tabs -->
+          <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('dashboard')">داشبورد</button>
+            <button class="admin-tab" onclick="switchAdminTab('orders')">سفارشات</button>
+            <button class="admin-tab" onclick="switchAdminTab('withdrawals')">برداشت‌ها</button>
+            <button class="admin-tab" onclick="switchAdminTab('users')">کاربران</button>
+            <button class="admin-tab" onclick="switchAdminTab('prices')">قیمت‌گذاری</button>
+            <button class="admin-tab" onclick="switchAdminTab('reports')">گزارش</button>
+          </div>
+
+          <!-- Admin Dashboard -->
+          <div id="admin-dashboard" class="admin-content active">
+            <div class="stats-grid" id="admin-stats-grid"></div>
+            <div class="grid-2col">
+              <div class="glass-card">
+                <h3>آخرین سفارشات</h3>
+                <div id="admin-recent-orders"></div>
+              </div>
+              <div class="glass-card">
+                <h3>آخرین درخواست‌های برداشت</h3>
+                <div id="admin-recent-withdrawals"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin Orders -->
+          <div id="admin-orders" class="admin-content" style="display:none;">
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="loadAdminOrders('')">همه</button>
+              <button class="filter-tab" onclick="loadAdminOrders('pending')">در انتظار</button>
+              <button class="filter-tab" onclick="loadAdminOrders('completed')">تکمیل</button>
+              <button class="filter-tab" onclick="loadAdminOrders('rejected')">رد شده</button>
+            </div>
+            <div id="admin-orders-list" class="orders-list mt-20"></div>
+          </div>
+
+          <!-- Admin Withdrawals -->
+          <div id="admin-withdrawals" class="admin-content" style="display:none;">
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="loadAdminWithdrawals('')">همه</button>
+              <button class="filter-tab" onclick="loadAdminWithdrawals('pending')">در انتظار</button>
+              <button class="filter-tab" onclick="loadAdminWithdrawals('approved')">تأیید شده</button>
+            </div>
+            <div id="admin-withdrawals-list" class="orders-list mt-20"></div>
+          </div>
+
+          <!-- Admin Users -->
+          <div id="admin-users" class="admin-content" style="display:none;">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input type="text" id="user-search" placeholder="جستجو با نام یا شماره..." class="form-input" oninput="searchUsers()">
+            </div>
+            <div id="admin-users-list" class="mt-20"></div>
+          </div>
+
+          <!-- Admin Prices -->
+          <div id="admin-prices" class="admin-content" style="display:none;">
+            <div class="glass-card mb-20">
+              <h3>تنظیمات قیمت‌گذاری</h3>
+              <div class="form-group">
+                <label>حالت قیمت‌گذاری</label>
+                <select id="price-mode-select" class="form-input">
+                  <option value="manual">دستی (تأیید آنی)</option>
+                  <option value="api">API (نیاز به تأیید ادمین)</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>درصد افزایش برای فروش به مشتری (%)</label>
+                  <input type="number" id="buy-markup" placeholder="2" class="form-input" dir="ltr">
+                </div>
+                <div class="form-group">
+                  <label>درصد کاهش برای خرید از مشتری (%)</label>
+                  <input type="number" id="sell-markdown" placeholder="2" class="form-input" dir="ltr">
+                </div>
+              </div>
+              <button class="btn btn-primary" onclick="savePriceSettings()">ذخیره تنظیمات</button>
+            </div>
+
+            <h3 class="sub-title">قیمت‌گذاری دستی دارایی‌ها</h3>
+            <div id="admin-price-list"></div>
+          </div>
+
+          <!-- Admin Reports -->
+          <div id="admin-reports" class="admin-content" style="display:none;">
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="loadReports('daily')">امروز</button>
+              <button class="filter-tab" onclick="loadReports('weekly')">هفتگی</button>
+              <button class="filter-tab" onclick="loadReports('monthly')">ماهانه</button>
+            </div>
+            <div id="reports-content" class="mt-20"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<!-- Toast notifications -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- Modal -->
+<div id="modal-overlay" class="modal-overlay" style="display:none;" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="modal-title"></h3>
+      <button onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آموزش کامل - گلدتریدر</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Vazirmatn', sans-serif; background: #0a0e1a; color: #f0f0f0; direction: rtl; line-height: 1.7; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  .header { text-align: center; margin-bottom: 50px; }
+  .header-logo { font-size: 56px; margin-bottom: 16px; }
+  .header h1 { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #F5B942, #C8922A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .header p { color: #9AA0B0; font-size: 15px; }
+  .author { background: rgba(245,185,66,0.1); border: 1px solid rgba(245,185,66,0.3); border-radius: 50px; padding: 8px 20px; display: inline-block; margin-top: 12px; font-size: 13px; color: #F5B942; }
+  .toc { background: rgba(245,185,66,0.06); border: 1px solid rgba(245,185,66,0.2); border-radius: 16px; padding: 24px; margin-bottom: 32px; }
+  .toc h3 { color: #F5B942; margin-bottom: 14px; font-size: 16px; }
+  .toc-list { list-style: none; display: grid; gap: 8px; }
+  .toc-list li a { color: #9AA0B0; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
+  .toc-list li a:hover { color: #F5B942; }
+  .toc-list li a::before { content: '←'; color: #F5B942; font-size: 12px; }
+  .section { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .section-num { width: 44px; height: 44px; background: linear-gradient(135deg, #F5B942, #C8922A); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #000; flex-shrink: 0; }
+  .section-title { font-size: 20px; font-weight: 700; color: #F5B942; }
+  .step { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 28px; height: 28px; background: rgba(245,185,66,0.15); border: 1px solid rgba(245,185,66,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #F5B942; flex-shrink: 0; margin-top: 2px; }
+  .step-content h4 { font-weight: 600; font-size: 14px; color: #f0f0f0; margin-bottom: 4px; }
+  .step-content p { color: #9AA0B0; font-size: 13px; line-height: 1.7; }
+  .code-block { background: #0d1117; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; margin: 12px 0; font-family: monospace; font-size: 13px; direction: ltr; text-align: left; overflow-x: auto; color: #22C55E; line-height: 1.8; }
+  .highlight-box { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 14px; margin: 10px 0; display: flex; gap: 10px; }
+  .highlight-box i { color: #3B82F6; flex-shrink: 0; margin-top: 2px; }
+  .highlight-box p { color: #9AA0B0; font-size: 13px; line-height: 1.7; }
+  .warning-box { background: rgba(245,185,66,0.08); border: 1px solid rgba(245,185,66,0.2); border-radius: 10px; padding: 14px; margin: 10px 0; display: flex; gap: 10px; }
+  .warning-box i { color: #F5B942; flex-shrink: 0; margin-top: 2px; }
+  .warning-box p { color: #9AA0B0; font-size: 13px; line-height: 1.7; }
+  .credentials-card { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 16px; margin: 12px 0; }
+  .credentials-card h4 { color: #22C55E; margin-bottom: 10px; font-size: 14px; }
+  .credential-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(34,197,94,0.1); }
+  .credential-row:last-child { border-bottom: none; }
+  .credential-label { color: #9AA0B0; font-size: 13px; }
+  .credential-value { color: #22C55E; font-weight: 700; font-family: monospace; font-size: 13px; direction: ltr; }
+  .footer { text-align: center; padding: 40px 0 20px; color: #9AA0B0; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 20px; }
+  .img-placeholder { background: rgba(245,185,66,0.08); border: 2px dashed rgba(245,185,66,0.3); border-radius: 12px; padding: 30px; text-align: center; color: #F5B942; margin: 12px 0; }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-logo">📖</div>
+    <h1>آموزش کامل پروژه گلدتریدر</h1>
+    <p>راهنمای گام‌به‌گام برای استفاده از تمام امکانات</p>
+    <div class="author">✍️ نوشته: alireza.k</div>
+  </div>
+
+  <!-- فهرست مطالب -->
+  <div class="toc">
+    <h3>📋 فهرست مطالب</h3>
+    <ul class="toc-list">
+      <li><a href="#section1">نصب و راه‌اندازی</a></li>
+      <li><a href="#section2">اطلاعات ورود</a></li>
+      <li><a href="#section3">آموزش ورود به سیستم</a></li>
+      <li><a href="#section4">آموزش انجام معامله</a></li>
+      <li><a href="#section5">آموزش کیف پول</a></li>
+      <li><a href="#section6">آموزش برداشت وجه</a></li>
+      <li><a href="#section7">آموزش رفرال</a></li>
+      <li><a href="#section8">آموزش پنل ادمین</a></li>
+      <li><a href="#section9">دستورات Docker</a></li>
+    </ul>
+  </div>
+
+  <!-- بخش ۱ -->
+  <div id="section1" class="section">
+    <div class="section-header">
+      <div class="section-num">۱</div>
+      <div class="section-title">نصب و راه‌اندازی</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>نصب پیش‌نیازها</h4>
+        <p>ابتدا Node.js نسخه ۱۸ یا بالاتر را نصب کنید.</p>
+        <div class="code-block">node --version  # باید v18+ باشد
+npm --version  # باید 8+ باشد</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>دریافت پروژه</h4>
+        <div class="code-block">git clone https://github.com/YOUR_USERNAME/goldtrader.git
+cd goldtrader</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>نصب وابستگی‌ها</h4>
+        <div class="code-block">npm install</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۴</div>
+      <div class="step-content">
+        <h4>ساخت دیتابیس</h4>
+        <p>این دستور جداول، داده‌های اولیه، ادمین و کاربر تست را می‌سازد.</p>
+        <div class="code-block">node src/db/init.js</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۵</div>
+      <div class="step-content">
+        <h4>اجرای سرور</h4>
+        <div class="code-block">npm start
+# یا با PM2:
+pm2 start ecosystem.config.cjs</div>
+        <p>سرور روی پورت ۳۰۰۰ اجرا می‌شود: <strong style="color:#F5B942">http://localhost:3000</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۲ -->
+  <div id="section2" class="section">
+    <div class="section-header">
+      <div class="section-num">۲</div>
+      <div class="section-title">اطلاعات ورود پیش‌فرض</div>
+    </div>
+
+    <div class="credentials-card">
+      <h4>👑 ادمین سیستم</h4>
+      <div class="credential-row"><span class="credential-label">شماره موبایل:</span><span class="credential-value">09000000000</span></div>
+      <div class="credential-row"><span class="credential-label">رمز عبور:</span><span class="credential-value">Admin@1234</span></div>
+      <div class="credential-row"><span class="credential-label">دسترسی:</span><span class="credential-value">مدیریت کامل سیستم</span></div>
+    </div>
+
+    <div class="credentials-card">
+      <h4>👤 کاربر تست</h4>
+      <div class="credential-row"><span class="credential-label">شماره موبایل:</span><span class="credential-value">09123456789</span></div>
+      <div class="credential-row"><span class="credential-label">رمز عبور:</span><span class="credential-value">User@1234</span></div>
+      <div class="credential-row"><span class="credential-label">موجودی ریالی:</span><span class="credential-value">۱۰,۰۰۰,۰۰۰ ریال</span></div>
+      <div class="credential-row"><span class="credential-label">دارایی:</span><span class="credential-value">۵.۵ گرم هر نوع طلا + ۲ عدد سکه</span></div>
+    </div>
+
+    <div class="highlight-box">
+      <i class="fas fa-info-circle"></i>
+      <p>همچنین می‌توانید با هر شماره موبایل دیگری ثبت‌نام کنید. در حالت development، کد OTP در response API برگشت داده می‌شود تا نیاز به SMS واقعی نباشد.</p>
+    </div>
+  </div>
+
+  <!-- بخش ۳ -->
+  <div id="section3" class="section">
+    <div class="section-header">
+      <div class="section-num">۳</div>
+      <div class="section-title">ورود به سیستم</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>ورود با OTP (کد تأیید)</h4>
+        <p>تب "ورود با کد" را انتخاب کنید. شماره موبایل خود را وارد کنید. روی "ارسال کد تأیید" کلیک کنید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>وارد کردن کد</h4>
+        <p>کد ۶ رقمی را در خانه‌های مربوطه وارد کنید. در حالت development، کد در پیام سرور نمایش داده می‌شود.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>ورود با رمز عبور</h4>
+        <p>برای کاربران از پیش تعریف‌شده، تب "ورود با رمز" را انتخاب کنید و شماره + رمز وارد کنید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۴</div>
+      <div class="step-content">
+        <h4>استفاده از کد معرف</h4>
+        <p>هنگام ورود با OTP، در صورت داشتن کد معرف، آن را در فیلد "کد معرف (اختیاری)" وارد کنید.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۴ -->
+  <div id="section4" class="section">
+    <div class="section-header">
+      <div class="section-num">۴</div>
+      <div class="section-title">انجام معامله (خرید و فروش)</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>انتخاب دارایی</h4>
+        <p>از بخش "معاملات" یکی از کارت‌های دارایی را انتخاب کنید (طلای ۱۸، ۲۴ عیار، سکه تمام، نیم سکه، ربع سکه).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>انتخاب نوع معامله</h4>
+        <p>در پانل معامله، بین "خرید" (سبز) و "فروش" (قرمز) انتخاب کنید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>انتخاب روش محاسبه</h4>
+        <p><strong>بر اساس مقدار:</strong> مثلاً ۲ گرم طلا بخرم.<br><strong>بر اساس مبلغ:</strong> مثلاً با ۵ میلیون تومان طلا بخرم.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۴</div>
+      <div class="step-content">
+        <h4>وارد کردن مقدار</h4>
+        <p>مقدار یا مبلغ را وارد کنید. سیستم به صورت خودکار معادل دیگر را محاسبه می‌کند.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۵</div>
+      <div class="step-content">
+        <h4>ثبت سفارش</h4>
+        <p>روی "ثبت سفارش" کلیک کنید. اگر قیمت دستی باشد، معامله آنی تأیید می‌شود. اگر قیمت API باشد، سفارش در انتظار تأیید ادمین می‌ماند.</p>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>برای خرید باید موجودی ریالی کافی داشته باشید. برای فروش باید موجودی دارایی کافی داشته باشید. در صورت کمبود، پیام خطا نمایش داده می‌شود.</p>
+    </div>
+  </div>
+
+  <!-- بخش ۵ -->
+  <div id="section5" class="section">
+    <div class="section-header">
+      <div class="section-num">۵</div>
+      <div class="section-title">کیف پول و دارایی‌ها</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>مشاهده کیف پول</h4>
+        <p>از منوی "کیف پول" می‌توانید موجودی ریالی، ارزش دارایی‌ها و ارزش کل پرتفو را ببینید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>مشاهده دارایی‌ها</h4>
+        <p>لیست تمام دارایی‌ها با موجودی و ارزش ریالی هر کدام نمایش داده می‌شود.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>شارژ کیف پول</h4>
+        <p>شارژ کیف پول فقط توسط ادمین امکان‌پذیر است (از پنل ادمین ← مدیریت کاربران).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۶ -->
+  <div id="section6" class="section">
+    <div class="section-header">
+      <div class="section-num">۶</div>
+      <div class="section-title">درخواست برداشت وجه</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>وارد کردن اطلاعات</h4>
+        <p>از منو "برداشت وجه" را انتخاب کنید. مبلغ (حداقل ۵۰۰,۰۰۰ ریال)، شماره شبا (IR + ۲۴ رقم) و نام صاحب حساب را وارد کنید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>ثبت درخواست</h4>
+        <p>پس از ثبت، مبلغ از کیف پول شما رزرو می‌شود. درخواست در وضعیت "در انتظار" قرار می‌گیرد.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>فرآیند بررسی</h4>
+        <p>کارشناسان با شما تماس می‌گیرند. پس از تأیید هویت، مبلغ به شبا واریز می‌شود. در صورت رد، مبلغ به کیف پول برمی‌گردد.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۷ -->
+  <div id="section7" class="section">
+    <div class="section-header">
+      <div class="section-num">۷</div>
+      <div class="section-title">سیستم معرفی دوستان</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>مشاهده کد معرف</h4>
+        <p>از منو "معرفی دوستان" کد منحصربه‌فرد خود را ببینید. این کد یکتا است و قابل تغییر نیست.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>اشتراک‌گذاری</h4>
+        <p>با کلیک روی دکمه کپی، کد را کپی کنید. این کد را با دوستان و آشنایان خود به اشتراک بگذارید.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>ثبت‌نام با کد معرف</h4>
+        <p>هنگام ثبت‌نام، دوستتان کد شما را در فیلد "کد معرف" وارد کند تا ثبت شود.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۸ -->
+  <div id="section8" class="section">
+    <div class="section-header">
+      <div class="section-num">۸</div>
+      <div class="section-title">پنل مدیریت (ادمین)</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>داشبورد</h4>
+        <p>آمار کلی: تعداد کاربران، سفارشات، حجم معاملات، سفارشات در انتظار. آخرین سفارشات و درخواست‌های برداشت.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>مدیریت سفارشات</h4>
+        <p>مشاهده تمام سفارشات با فیلتر وضعیت. برای سفارشات در انتظار (API mode): دکمه تأیید ✅ یا رد ❌.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>مدیریت برداشت‌ها</h4>
+        <p>مشاهده درخواست‌های برداشت. پس از تماس با مشتری و واریز وجه، دکمه تأیید را بزنید. در صورت رد، مبلغ به کاربر برمی‌گردد.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۴</div>
+      <div class="step-content">
+        <h4>قیمت‌گذاری</h4>
+        <p>تغییر حالت قیمت (دستی/API). تنظیم درصد سود خرید و فروش. بروزرسانی قیمت هر دارایی به صورت جداگانه.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۵</div>
+      <div class="step-content">
+        <h4>گزارش‌گیری</h4>
+        <p>مشاهده گزارش روزانه، هفتگی و ماهانه. آمار خرید و فروش به تفکیک دارایی. وضعیت درخواست‌های برداشت.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش ۹ -->
+  <div id="section9" class="section">
+    <div class="section-header">
+      <div class="section-num">۹</div>
+      <div class="section-title">اجرا با Docker</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۱</div>
+      <div class="step-content">
+        <h4>build و اجرا</h4>
+        <div class="code-block">docker-compose up -d --build</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۲</div>
+      <div class="step-content">
+        <h4>مشاهده لاگ‌ها</h4>
+        <div class="code-block">docker-compose logs -f goldtrader</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">۳</div>
+      <div class="step-content">
+        <h4>متوقف کردن</h4>
+        <div class="code-block">docker-compose down</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <i class="fas fa-info-circle"></i>
+      <p>فایل .env را قبل از اجرا با Docker تنظیم کنید. دیتابیس در پوشه data/ ذخیره می‌شود که در docker-compose به عنوان volume mount شده است.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>📝 این آموزش توسط <strong>alireza.k</strong> نوشته شده است</p>
+    <p style="margin-top:8px">پروژه گلدتریدر - آموزش کامل | ۱۴۰۵</p>
+  </div>
+
+</div>
+</body>
+</html>

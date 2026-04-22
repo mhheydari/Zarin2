@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  goldtrader:
+    build: .
+    container_name: goldtrader-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+      - ./.env:/app/.env:ro
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - goldtrader-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: goldtrader-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - goldtrader
+    networks:
+      - goldtrader-net
+
+networks:
+  goldtrader-net:
+    driver: bridge

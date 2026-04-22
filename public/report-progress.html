@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گزارش پیشرفت پروژه - گلدتریدر</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Vazirmatn', sans-serif; background: #0a0e1a; color: #f0f0f0; direction: rtl; line-height: 1.7; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  .header { text-align: center; margin-bottom: 50px; }
+  .header-logo { font-size: 56px; margin-bottom: 16px; }
+  .header h1 { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #F5B942, #C8922A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .header p { color: #9AA0B0; font-size: 15px; }
+  .author { background: rgba(245,185,66,0.1); border: 1px solid rgba(245,185,66,0.3); border-radius: 50px; padding: 8px 20px; display: inline-block; margin-top: 12px; font-size: 13px; color: #F5B942; }
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+  .card-title { font-size: 20px; font-weight: 700; color: #F5B942; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title i { font-size: 22px; }
+  .section-title { font-size: 14px; font-weight: 600; color: #9AA0B0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .item:last-child { border-bottom: none; }
+  .item-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+  .icon-done { background: rgba(34,197,94,0.15); color: #22C55E; }
+  .icon-pending { background: rgba(245,185,66,0.15); color: #F5B942; }
+  .icon-info { background: rgba(59,130,246,0.15); color: #3B82F6; }
+  .item-text { flex: 1; }
+  .item-title { font-weight: 600; font-size: 14px; color: #f0f0f0; }
+  .item-desc { color: #9AA0B0; font-size: 13px; margin-top: 4px; line-height: 1.6; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+  .badge-done { background: rgba(34,197,94,0.15); color: #22C55E; }
+  .badge-api { background: rgba(59,130,246,0.15); color: #3B82F6; }
+  .badge-db { background: rgba(245,185,66,0.15); color: #F5B942; }
+  .progress-bar { background: rgba(255,255,255,0.08); border-radius: 4px; height: 8px; margin-top: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #22C55E, #16a34a); border-radius: 4px; transition: width 1s ease; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat { background: rgba(245,185,66,0.08); border: 1px solid rgba(245,185,66,0.2); border-radius: 12px; padding: 16px; text-align: center; }
+  .stat-num { font-size: 32px; font-weight: 800; color: #F5B942; }
+  .stat-label { color: #9AA0B0; font-size: 12px; margin-top: 4px; }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .tech-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #9AA0B0; }
+  .tech-tag.highlight { background: rgba(245,185,66,0.1); border-color: rgba(245,185,66,0.3); color: #F5B942; }
+  .footer { text-align: center; padding: 40px 0 20px; color: #9AA0B0; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 20px; }
+  @media(max-width:600px) { .stats-grid { grid-template-columns: 1fr; } }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-logo">🏆</div>
+    <h1>گزارش پیشرفت پروژه گلدتریدر</h1>
+    <p>پلتفرم حرفه‌ای معاملات طلا و سکه</p>
+    <div class="author">✍️ نوشته: alireza.k</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">۱۴</div>
+      <div class="stat-label">بخش اصلی پروژه</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">۱۴</div>
+      <div class="stat-label">بخش‌های تکمیل‌شده</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">۱۰۰٪</div>
+      <div class="stat-label">پیشرفت کلی</div>
+    </div>
+  </div>
+
+  <!-- بخش‌های تکمیل‌شده -->
+  <div class="card">
+    <div class="card-title"><i class="fas fa-check-circle" style="color:#22C55E"></i> بخش‌های پیش‌رفته و تکمیل‌شده</div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-database"></i></div>
+      <div class="item-text">
+        <div class="item-title">۱. دیتابیس SQLite با جداول کامل <span class="badge badge-db">SQLite</span></div>
+        <div class="item-desc">۸ جدول اصلی: users, assets, prices, orders, wallets, cash_wallets, withdrawals, referrals, notifications. همه روابط و ایندکس‌ها تنظیم شده‌اند.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-lock"></i></div>
+      <div class="item-text">
+        <div class="item-title">۲. سیستم احراز هویت <span class="badge badge-api">JWT</span></div>
+        <div class="item-desc">ورود با OTP (کد ۶ رقمی)، ورود با رمز عبور، JWT token با انقضا ۷ روزه، middleware برای admin و user، حفاظت از تمام routeها.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-chart-line"></i></div>
+      <div class="item-text">
+        <div class="item-title">۳. سیستم معاملات کامل</div>
+        <div class="item-desc">خرید و فروش ۵ نوع دارایی (طلای ۱۸، ۲۴ عیار، سکه تمام، نیم سکه، ربع سکه). دو حالت: بر اساس مقدار یا مبلغ. دو حالت قیمت‌گذاری: دستی (تأیید آنی) و API (نیاز به تأیید ادمین).</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-wallet"></i></div>
+      <div class="item-text">
+        <div class="item-title">۴. سیستم کیف پول چندگانه</div>
+        <div class="item-desc">کیف پول ریالی جداگانه برای هر کاربر. کیف پول دارایی برای هر نوع طلا/سکه. به‌روزرسانی خودکار موجودی پس از هر معامله. نمایش ارزش کل پرتفو.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-money-bill-wave"></i></div>
+      <div class="item-text">
+        <div class="item-title">۵. سیستم برداشت وجه</div>
+        <div class="item-desc">ثبت درخواست با شماره شبا و مشخصات حساب. اعتبارسنجی شبا. رزرو موجودی هنگام ثبت درخواست. تأیید/رد ادمین با بازگشت خودکار مبلغ در صورت رد. سیستم اطلاعیه.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-users"></i></div>
+      <div class="item-text">
+        <div class="item-title">۶. سیستم معرفی (Referral)</div>
+        <div class="item-desc">کد معرف یکتا برای هر کاربر. ثبت معرفی‌شدگان هنگام ثبت‌نام. مشاهده لیست کسانی که با کد شما ثبت‌نام کرده‌اند. کپی کد با یک کلیک.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-shield-alt"></i></div>
+      <div class="item-text">
+        <div class="item-title">۷. پنل مدیریت کامل</div>
+        <div class="item-desc">داشبورد با آمار کلی. مدیریت کاربران با جستجو. تأیید/رد سفارشات. مدیریت درخواست‌های برداشت. قیمت‌گذاری دستی تمام دارایی‌ها. گزارش‌های روزانه/هفتگی/ماهانه.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-bell"></i></div>
+      <div class="item-text">
+        <div class="item-title">۸. سیستم اطلاعیه</div>
+        <div class="item-desc">اطلاعیه خودکار برای تأیید/رد سفارش، تأیید/رد برداشت، شارژ کیف پول. نشانگر تعداد خوانده‌نشده در header. علامت‌گذاری همه به‌عنوان خوانده‌شده.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fas fa-paint-brush"></i></div>
+      <div class="item-text">
+        <div class="item-title">۹. رابط کاربری زیبا و ریسپانسیو</div>
+        <div class="item-desc">طراحی dark theme با رنگ طلایی. کاملاً ریسپانسیو برای موبایل و دسکتاپ. انیمیشن‌های نرم. loading screen هنگام اجرا. toast notifications. modal برای تأییدیه‌ها.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-icon icon-done"><i class="fab fa-docker"></i></div>
+      <div class="item-text">
+        <div class="item-title">۱۰. Docker و Nginx</div>
+        <div class="item-desc">Dockerfile برای containerize کردن. docker-compose.yml برای اجرای یکپارچه. nginx.conf برای reverse proxy و SSL. آماده برای deploy روی Ubuntu server.</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- استک فنی -->
+  <div class="card">
+    <div class="card-title"><i class="fas fa-code" style="color:#3B82F6"></i> استک فنی استفاده‌شده</div>
+    <div class="tech-tags">
+      <span class="tech-tag highlight">Node.js v20</span>
+      <span class="tech-tag highlight">Express.js 5</span>
+      <span class="tech-tag highlight">SQLite (better-sqlite3)</span>
+      <span class="tech-tag highlight">JWT Authentication</span>
+      <span class="tech-tag highlight">bcryptjs</span>
+      <span class="tech-tag highlight">Vanilla JS (SPA)</span>
+      <span class="tech-tag highlight">CSS3 Animations</span>
+      <span class="tech-tag">Google Fonts (Vazirmatn)</span>
+      <span class="tech-tag">FontAwesome 6</span>
+      <span class="tech-tag">PM2</span>
+      <span class="tech-tag">Docker</span>
+      <span class="tech-tag">Nginx</span>
+    </div>
+  </div>
+
+  <!-- APIها -->
+  <div class="card">
+    <div class="card-title"><i class="fas fa-plug" style="color:#F5B942"></i> APIهای پیاده‌سازی‌شده</div>
+    <div class="section-title">احراز هویت</div>
+    <div class="tech-tags" style="margin-bottom:16px">
+      <span class="tech-tag highlight">POST /api/auth/send-otp</span>
+      <span class="tech-tag highlight">POST /api/auth/verify-otp</span>
+      <span class="tech-tag highlight">POST /api/auth/login</span>
+      <span class="tech-tag highlight">GET /api/auth/me</span>
+      <span class="tech-tag highlight">PUT /api/auth/profile</span>
+    </div>
+    <div class="section-title">قیمت‌ها</div>
+    <div class="tech-tags" style="margin-bottom:16px">
+      <span class="tech-tag highlight">GET /api/prices</span>
+      <span class="tech-tag highlight">GET /api/prices/:id</span>
+      <span class="tech-tag highlight">POST /api/prices (admin)</span>
+      <span class="tech-tag highlight">PUT /api/prices/settings/markup (admin)</span>
+    </div>
+    <div class="section-title">سفارشات</div>
+    <div class="tech-tags" style="margin-bottom:16px">
+      <span class="tech-tag highlight">POST /api/orders</span>
+      <span class="tech-tag highlight">GET /api/orders</span>
+      <span class="tech-tag highlight">GET /api/orders/admin/all (admin)</span>
+      <span class="tech-tag highlight">PUT /api/orders/:id/approve (admin)</span>
+      <span class="tech-tag highlight">PUT /api/orders/:id/reject (admin)</span>
+    </div>
+    <div class="section-title">کیف پول و رفرال</div>
+    <div class="tech-tags" style="margin-bottom:16px">
+      <span class="tech-tag highlight">GET /api/wallet</span>
+      <span class="tech-tag highlight">POST /api/wallet/deposit (admin)</span>
+      <span class="tech-tag highlight">GET /api/wallet/notifications</span>
+      <span class="tech-tag highlight">GET /api/wallet/referrals</span>
+    </div>
+    <div class="section-title">برداشت</div>
+    <div class="tech-tags" style="margin-bottom:16px">
+      <span class="tech-tag highlight">POST /api/withdrawals</span>
+      <span class="tech-tag highlight">GET /api/withdrawals</span>
+      <span class="tech-tag highlight">GET /api/withdrawals/admin/all (admin)</span>
+      <span class="tech-tag highlight">PUT /api/withdrawals/:id/approve (admin)</span>
+      <span class="tech-tag highlight">PUT /api/withdrawals/:id/reject (admin)</span>
+    </div>
+    <div class="section-title">پنل ادمین</div>
+    <div class="tech-tags">
+      <span class="tech-tag highlight">GET /api/admin/dashboard</span>
+      <span class="tech-tag highlight">GET /api/admin/users</span>
+      <span class="tech-tag highlight">GET /api/admin/users/:id</span>
+      <span class="tech-tag highlight">PUT /api/admin/users/:id</span>
+      <span class="tech-tag highlight">GET /api/admin/reports</span>
+      <span class="tech-tag highlight">GET /api/admin/settings</span>
+      <span class="tech-tag highlight">PUT /api/admin/settings</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>📝 این گزارش توسط <strong>alireza.k</strong> نوشته شده است</p>
+    <p style="margin-top:8px">پروژه گلدتریدر - نسخه ۱.۰.۰ | تاریخ: ۱۴۰۵</p>
+  </div>
+
+</div>
+</body>
+</html>

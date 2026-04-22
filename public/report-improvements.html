@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پیشنهادات بهبود - گلدتریدر</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Vazirmatn', sans-serif; background: #0a0e1a; color: #f0f0f0; direction: rtl; line-height: 1.7; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  .header { text-align: center; margin-bottom: 50px; }
+  .header-logo { font-size: 56px; margin-bottom: 16px; }
+  .header h1 { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #F5B942, #C8922A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .header p { color: #9AA0B0; font-size: 15px; }
+  .author { background: rgba(245,185,66,0.1); border: 1px solid rgba(245,185,66,0.3); border-radius: 50px; padding: 8px 20px; display: inline-block; margin-top: 12px; font-size: 13px; color: #F5B942; }
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+  .card-title { font-size: 20px; font-weight: 700; color: #F5B942; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .improvement-item { border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; margin-bottom: 16px; background: rgba(255,255,255,0.02); transition: all 0.3s; }
+  .improvement-item:hover { border-color: rgba(245,185,66,0.3); background: rgba(245,185,66,0.04); }
+  .improvement-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .improvement-num { width: 36px; height: 36px; background: linear-gradient(135deg, #F5B942, #C8922A); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; font-size: 16px; flex-shrink: 0; }
+  .improvement-title { font-size: 16px; font-weight: 700; color: #F5B942; }
+  .improvement-desc { color: #9AA0B0; font-size: 13px; line-height: 1.8; }
+  .improvement-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: #9AA0B0; }
+  .tag.high { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #EF4444; }
+  .tag.medium { background: rgba(245,185,66,0.1); border-color: rgba(245,185,66,0.3); color: #F5B942; }
+  .tag.low { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: #22C55E; }
+  .priority-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .p-high { background: rgba(239,68,68,0.15); color: #EF4444; }
+  .p-medium { background: rgba(245,185,66,0.15); color: #F5B942; }
+  .p-low { background: rgba(34,197,94,0.15); color: #22C55E; }
+  .footer { text-align: center; padding: 40px 0 20px; color: #9AA0B0; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 20px; }
+  .roadmap { display: grid; grid-template-columns: 1fr; gap: 0; position: relative; }
+  .roadmap-item { padding: 16px 16px 16px 40px; position: relative; }
+  .roadmap-item::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: rgba(245,185,66,0.2); }
+  .roadmap-item::after { content: ''; position: absolute; right: -5px; top: 22px; width: 12px; height: 12px; background: #F5B942; border-radius: 50%; }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-logo">💡</div>
+    <h1>پیشنهادات بهبود پروژه</h1>
+    <p>ایده‌ها و قابلیت‌های پیشنهادی برای ارتقاء گلدتریدر</p>
+    <div class="author">✍️ نوشته: alireza.k</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="fas fa-rocket"></i> پیشنهادات فنی و امنیتی</div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۱</div>
+        <div>
+          <div class="improvement-title">پیاده‌سازی SMS واقعی برای OTP <span class="priority-badge p-high">اولویت بالا</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        در حال حاضر کد OTP فقط در log سرور نشان داده می‌شود. برای production باید از سرویس‌های SMS مانند <strong>کاوه‌نگار، ملی‌پیام، ایران‌کیش SMS</strong> استفاده شود. با یک SDK ساده می‌توان این را در چند دقیقه راه‌اندازی کرد.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">SMS API</span>
+        <span class="tag">کاوه‌نگار</span>
+        <span class="tag">ملی‌پیام</span>
+        <span class="tag high">ضروری برای production</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۲</div>
+        <div>
+          <div class="improvement-title">یکپارچه‌سازی API قیمت طلا <span class="priority-badge p-high">اولویت بالا</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        اتصال به API‌های قیمت‌دهی مانند <strong>goldapi.io، تبدیل، آهنگ‌تبدیل</strong> برای دریافت قیمت لحظه‌ای. قیمت هر ۵-۱۵ دقیقه به‌روزرسانی شود و به صورت خودکار درصدهای خرید/فروش اعمال شوند.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">goldapi.io</span>
+        <span class="tag">WebSocket</span>
+        <span class="tag medium">در فهرست برنامه</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۳</div>
+        <div>
+          <div class="improvement-title">Rate Limiting و امنیت <span class="priority-badge p-high">اولویت بالا</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        محدود کردن تعداد درخواست‌ها به هر IP (مانند max 5 OTP در ساعت). اضافه کردن <strong>helmet.js</strong> برای headers امنیتی. اعتبارسنجی دقیق‌تر ورودی‌ها با express-validator. لاگ‌گیری از لاگین‌های مشکوک.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">express-rate-limit</span>
+        <span class="tag">helmet.js</span>
+        <span class="tag">express-validator</span>
+        <span class="tag high">امنیت</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۴</div>
+        <div>
+          <div class="improvement-title">کیف پول با لاگ تراکنش‌ها <span class="priority-badge p-medium">اولویت متوسط</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        ثبت جدول <strong>transactions</strong> برای هر تغییر موجودی. مانند: "شارژ ۵ میلیون توسط ادمین، خرید ۲ گرم طلا، برداشت ۱ میلیون". این گزارش برای هم کاربر و هم ادمین قابل نمایش باشد.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">transaction log</span>
+        <span class="tag">audit trail</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۵</div>
+        <div>
+          <div class="improvement-title">ارتقاء به PostgreSQL <span class="priority-badge p-medium">اولویت متوسط</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        برای بارگذاری بالا و concurrent transactions، مهاجرت از SQLite به <strong>PostgreSQL</strong> ضروری است. استفاده از Prisma ORM برای مدیریت راحت‌تر migration و type safety در TypeScript.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Prisma ORM</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag medium">برای scale</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۶</div>
+        <div>
+          <div class="improvement-title">نمودار قیمت و تاریخچه <span class="priority-badge p-medium">اولویت متوسط</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        نمایش نمودار تغییر قیمت دارایی‌ها در ۲۴ ساعت، هفته و ماه با استفاده از <strong>Chart.js</strong>. ذخیره تاریخچه قیمت در جدول price_history. این ابزار به کاربر کمک می‌کند تصمیم بهتری بگیرد.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">Chart.js</span>
+        <span class="tag">price_history table</span>
+        <span class="tag">candlestick chart</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۷</div>
+        <div>
+          <div class="improvement-title">اپلیکیشن موبایل PWA <span class="priority-badge p-low">اولویت پایین</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        تبدیل سایت به <strong>Progressive Web App</strong> برای نصب روی گوشی. Service Worker برای offline capability. Push Notifications برای اطلاع‌رسانی فوری تأیید سفارش.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">PWA</span>
+        <span class="tag">Service Worker</span>
+        <span class="tag">Push Notifications</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۸</div>
+        <div>
+          <div class="improvement-title">سیستم KYC و احراز هویت <span class="priority-badge p-high">اولویت بالا</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        برای معاملات بالا باید احراز هویت تکمیل شود: آپلود کارت ملی و سلفی. تأیید دستی توسط ادمین. محدودیت معامله بر اساس سطح احراز هویت. این از نظر قانونی در ایران الزامی است.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag high">الزامی قانونی</span>
+        <span class="tag">KYC</span>
+        <span class="tag">آپلود مدارک</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۹</div>
+        <div>
+          <div class="improvement-title">پشتیبان‌گیری خودکار <span class="priority-badge p-medium">اولویت متوسط</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        cron job روزانه برای backup از دیتابیس به S3 یا Google Drive. نگهداری ۳۰ روز آخر backup. اطلاع‌رسانی به ادمین در صورت شکست backup.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">cron job</span>
+        <span class="tag">AWS S3</span>
+        <span class="tag">disaster recovery</span>
+      </div>
+    </div>
+
+    <div class="improvement-item">
+      <div class="improvement-header">
+        <div class="improvement-num">۱۰</div>
+        <div>
+          <div class="improvement-title">سیستم کمیسیون رفرال <span class="priority-badge p-low">اولویت پایین</span></div>
+        </div>
+      </div>
+      <div class="improvement-desc">
+        به کاربری که رفرال می‌دهد، درصدی از کارمزد معامله‌های معرفی‌شدگان اضافه شود. مثلاً ۱٪ از هر معامله زیر‌مجموعه به کیف پول معرف واریز شود. این باعث رشد ارگانیک می‌شود.
+      </div>
+      <div class="improvement-tags">
+        <span class="tag">commission</span>
+        <span class="tag">multi-level referral</span>
+        <span class="tag low">تشویقی</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>📝 این گزارش توسط <strong>alireza.k</strong> نوشته شده است</p>
+    <p style="margin-top:8px">پروژه گلدتریدر - پیشنهادات ارتقاء | ۱۴۰۵</p>
+  </div>
+
+</div>
+</body>
+</html>
